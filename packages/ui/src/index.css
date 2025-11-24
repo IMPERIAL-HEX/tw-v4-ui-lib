@@ -1,0 +1,75 @@
+@import "tailwindcss";
+
+@source "../src";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+  --color-*: initial;
+  --font-*: initial;
+  --text-*: initial;
+
+  /* Map the color tokens to Tailwind color utilities */
+  --color-default-default: var(--default-default);
+  --color-default-hovered: var(--default-hovered);
+  --color-default-active: var(--default-active);
+  --color-default-disabled: var(--default-disabled);
+
+  --color-primary-default: var(--primary-default);
+  --color-primary-hovered: var(--primary-hovered);
+  --color-primary-active: var(--primary-active);
+  --color-primary-disabled: var(--primary-disabled);
+
+  --color-secondary-default: var(--secondary-default);
+  --color-secondary-hovered: var(--secondary-hovered);
+  --color-secondary-active: var(--secondary-active);
+  --color-secondary-disabled: var(--secondary-disabled);
+
+  --text-strong: var(--text-strong);
+  --text-soft: var(--text-soft);
+}
+
+@layer base {
+  :root {
+    /* neutral scale */
+    --neutral-50: #fafafa;
+    --neutral-100: #f5f5f5;
+    --neutral-200: #e5e5e5;
+    --neutral-300: #d4d4d4;
+    --neutral-400: #a3a3a3;
+    --neutral-500: #737373;
+    --neutral-600: #525252;
+    --neutral-700: #404040;
+    --neutral-800: #262626;
+    --neutral-900: #171717;
+    --neutral-1000: #0a0a0a;
+
+    /* ===========================
+       DEFAULT (GRAY)
+    ============================ */
+    --default-default: var(--neutral-50);
+    --default-hovered: var(--neutral-100);
+    --default-active: var(--neutral-300);
+    --default-disabled: var(--neutral-200);
+
+    /* ===========================
+       PRIMARY (RED)
+    ============================ */
+    --primary-default: #ef4444;    /* red-500 */
+    --primary-hovered: #dc2626;    /* red-600 */
+    --primary-active: #b91c1c;     /* red-700 */
+    --primary-disabled: #fecaca;   /* red-200 */
+
+    /* ===========================
+       SECONDARY (YELLOW)
+    ============================ */
+    --secondary-default: #facc15;  /* yellow-400 */
+    --secondary-hovered: #eab308;  /* yellow-500 */
+    --secondary-active: #ca8a04;   /* yellow-600 */
+    --secondary-disabled: #fef08a; /* yellow-200 */
+
+    /* Text tokens */
+    --text-soft: var(--neutral-500);
+    --text-strong: var(--neutral-700);
+  }
+}
