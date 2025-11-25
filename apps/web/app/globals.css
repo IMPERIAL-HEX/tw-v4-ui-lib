@@ -1,4 +1,9 @@
 @import "tailwindcss";
 
+/* // set layer cacsding order */
+/* @layer theme, base, ui-library, components, utilites; */
+
+/* this must be tw4 entry css also, not compile */
 @import "@repo/test-ui/index.css";
 
+/* @import "@repo/test-ui/styles.css" layer(ui-library); */

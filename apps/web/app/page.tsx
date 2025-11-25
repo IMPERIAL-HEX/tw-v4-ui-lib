@@ -4,11 +4,13 @@ export default function Home() {
   return (
     <div className="flex  p-40 justify-center items-center h-10 w-10">
       <div className="flex flex-col items-start">
-        <div className="h-4 text-red-500 w-10 p-5">Test content</div>
-        <div className="h-40 w-10 p-5">Test content</div>
-        <Button className="">test</Button>
+        <div className="h-4 w-10 p-5">Test content</div>
+        <div className="h-40 w-10 p-5 bg-default-disabled">Test content</div>
+        <Button className="text-strong">test</Button>
       </div>
-      <Button variant="primary">Open alert</Button>
+      <Button variant="primary" className="text-soft bg-secondary-disabled">
+        Open alert
+      </Button>
     </div>
   );
 }

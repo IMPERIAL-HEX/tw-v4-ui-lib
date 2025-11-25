@@ -7,6 +7,9 @@
   "files": [
     "dist"
   ],
+  "sideEffects": [
+    "**/*.css"
+  ],
   "exports": {
     ".": {
       "import": "./dist/index.mjs",
@@ -17,6 +20,9 @@
       "import": "./dist/utils/index.mjs"
     },
     "./index.css": {
+      "default": "./src/index.css"
+    },
+    "./styles.css": {
       "default": "./dist/index.css"
     }
   },

@@ -5,7 +5,18 @@
     }
   ],
   "tailwindCSS.experimental.configFile": {
-    "packages/ui/src/styles.css": "packages/ui/src/index.css**",
-    "apps/next-playground/app/globals.css": "apps/web/app/globals.css**"
+    // key: tw4 entry css file - value: where tw4 uses
+    "packages/ui/src/index.css": "packages/ui/src/**",
+    "apps/web/app/globals.css": "apps/web/app/**"
+  },
+  // this tells tw intellisense this functions include tw classes
+  "tailwindCSS.classFunctions": ["cva", "cn", "clsx"],
+  // this is not mandatory, but classNames are just string, sometimes it takes some times so I use this
+  "editor.quickSuggestions": {
+    "strings": true
+  },
+  // let css files read as tailwind
+  "files.associations": {
+    "*.css": "tailwindcss"
   }
 }
