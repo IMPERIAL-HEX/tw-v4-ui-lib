@@ -12,7 +12,7 @@ interface ButtonProps {
 }
 
 const buttonVariants = cva(
-  "h-9 px-4 py-2 rounded-md font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed",
+  "h-9 px-4 py-2 inline-flex items-center rounded-md font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed",
   {
     variants: {
       variant: {

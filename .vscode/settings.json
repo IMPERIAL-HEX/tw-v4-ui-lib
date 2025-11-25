@@ -3,5 +3,9 @@
     {
       "mode": "auto"
     }
-  ]
+  ],
+  "tailwindCSS.experimental.configFile": {
+    "packages/ui/src/styles.css": "packages/ui/src/index.css**",
+    "apps/next-playground/app/globals.css": "apps/web/app/globals.css**"
+  }
 }

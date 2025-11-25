@@ -36,8 +36,8 @@ export default defineConfig({
   build: {
     lib: {
       entry: {
-        index: path.resolve(dirname, "src/index.ts"),
-        "utils/index": path.resolve(dirname, "src/utils/index.ts"),
+        index: path.resolve(__dirname, "src/index.ts"),
+        "utils/index": path.resolve(__dirname, "src/utils/index.ts"),
       },
       formats: ["es"],
     },
@@ -45,15 +45,16 @@ export default defineConfig({
       external: [
         ...Object.keys(pkg.peerDependencies || {}),
         "react/jsx-runtime",
-        "tailwindcss",
         "tailwindcss/plugin",
       ],
       output: {
+        assetFileNames: "index.css",
         preserveModules: true,
         preserveModulesRoot: "src",
-        entryFileNames: "[name].mjs",
+        entryFileNames: "[name].mjs", // preserves file names
       },
     },
+    cssCodeSplit: false,
   },
   // test: {
   //   projects: [

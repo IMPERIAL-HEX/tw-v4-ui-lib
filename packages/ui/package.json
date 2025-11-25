@@ -22,7 +22,8 @@
   },
   "types": "./dist/index.d.ts",
   "scripts": {
-    "build": "vite build && tailwindcss -i ./src/index.css -o ./dist/index.css",
+    "dev": " vite build --watch",
+    "build": " pnpm -r exec rimraf dist && vite build",
     "lint": "eslint . --max-warnings 0",
     "generate:component": "turbo gen react-component",
     "check-types": "tsc --noEmit",
