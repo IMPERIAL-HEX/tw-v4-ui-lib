@@ -1,10 +1,4 @@
 @import "tailwindcss";
 
-/* @source ".*.{ts,tsx}"; */
-/* @source "../../packages/ui/src*.{ts,tsx}";/ */
+@import "@repo/test-ui/index.css";
 
-/* @import "@repo/test-ui/index.css"; */
-
-@theme {
-  --color-primary: #ef4444;
-}

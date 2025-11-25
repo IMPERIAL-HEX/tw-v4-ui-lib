@@ -1,3 +1,4 @@
+/* Without this import here the package css doesn't work */
 @import "tailwindcss";
 
 @source "../src";
@@ -11,7 +12,7 @@
 
   /* Map the color tokens to Tailwind color utilities */
   --color-default-default: var(--default-default);
-  --color-default-hovered: var(--default-hovered);
+  --color-default-hovered: var(--neutral-500);
   --color-default-active: var(--default-active);
   --color-default-disabled: var(--default-disabled);
 
