@@ -48,13 +48,11 @@ export default defineConfig({
         "tailwindcss/plugin",
       ],
       output: {
-        assetFileNames: "index.css",
         preserveModules: true,
         preserveModulesRoot: "src",
         entryFileNames: "[name].mjs", // preserves file names
       },
     },
-    cssCodeSplit: false,
   },
   // test: {
   //   projects: [

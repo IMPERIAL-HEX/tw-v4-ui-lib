@@ -1,6 +1,3 @@
-/* Without this import here the package css doesn't work */
-@import "tailwindcss";
-
 @source "../src";
 
 @custom-variant dark (&:is(.dark *));
@@ -56,17 +53,17 @@
     /* ===========================
        PRIMARY (RED)
     ============================ */
-    --primary-default: #ef4444;    /* red-500 */
-    --primary-hovered: #dc2626;    /* red-600 */
-    --primary-active: #b91c1c;     /* red-700 */
-    --primary-disabled: #fecaca;   /* red-200 */
+    --primary-default: #ef4444; /* red-500 */
+    --primary-hovered: #dc2626; /* red-600 */
+    --primary-active: #b91c1c; /* red-700 */
+    --primary-disabled: #fecaca; /* red-200 */
 
     /* ===========================
        SECONDARY (YELLOW)
     ============================ */
-    --secondary-default: #facc15;  /* yellow-400 */
-    --secondary-hovered: #eab308;  /* yellow-500 */
-    --secondary-active: #ca8a04;   /* yellow-600 */
+    --secondary-default: #facc15; /* yellow-400 */
+    --secondary-hovered: #eab308; /* yellow-500 */
+    --secondary-active: #ca8a04; /* yellow-600 */
     --secondary-disabled: #fef08a; /* yellow-200 */
 
     /* Text tokens */
