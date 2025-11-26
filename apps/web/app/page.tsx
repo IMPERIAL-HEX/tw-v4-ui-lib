@@ -8,7 +8,7 @@ export default function Home() {
         <div className="h-40 w-10 p-5 bg-default-disabled">Test content</div>
         <Button className="text-strong">test</Button>
       </div>
-      <Button variant="primary" className="text-soft bg-secondary-disabled">
+      <Button variant="primary" className="text-soft bg-secondary-active">
         Open alert
       </Button>
     </div>
