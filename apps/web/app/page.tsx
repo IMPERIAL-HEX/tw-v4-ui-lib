@@ -1,4 +1,4 @@
-import { Button } from "@repo/test-ui";
+import { Button } from "@imperial-hex/test-ui";
 
 export default function Home() {
   return (
