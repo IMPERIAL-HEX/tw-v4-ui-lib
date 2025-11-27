@@ -5,6 +5,7 @@ import path from "path";
 import preserveUseClientDirective from "rollup-plugin-preserve-use-client";
 import { defineConfig } from "vite";
 import dts from "vite-plugin-dts";
+import { viteStaticCopy } from "vite-plugin-static-copy";
 
 import pkg from "./package.json" with { type: "json" };
 
@@ -30,6 +31,15 @@ export default defineConfig({
         "**/__tests__/**",
         "**/*.spec.tsx",
         "**/*.spec.ts",
+      ],
+    }),
+    viteStaticCopy({
+      targets: [
+        {
+          src: "src/index.css",
+          dest: ".",
+          rename: "styles.css",
+        },
       ],
     }),
   ],
