@@ -1,135 +1,148 @@
-# Turborepo starter
+# Tailwind v4 UI Package POC
 
-This Turborepo starter is maintained by the Turborepo core team.
+This repository is a proof of concept (POC) for creating a UI component package using **Tailwind CSS v4** in a monorepo setup. The goal is to build a reusable UI library that can be consumed both within the monorepo and by external projects.
 
-## Using this example
+## Overview
 
-Run the following command:
+This monorepo demonstrates how to:
+- Build a UI component package with Tailwind CSS v4
+- Share components across multiple applications within a monorepo
+- Distribute the package for use in external projects
+- Handle CSS generation and distribution properly
 
-```sh
-npx create-turbo@latest
+## Repository Structure
+
+```
+tw-v4-ui-lib/
+├── apps/
+│   └── web/              # Next.js application consuming the UI package
+├── packages/
+│   ├── ui/               # UI component library package
+│   ├── eslint-config/   # Shared ESLint configurations
+│   └── typescript-config/ # Shared TypeScript configurations
+└── package.json          # Root package.json
 ```
 
-## What's inside?
+## Main Configuration
 
-This Turborepo includes the following packages/apps:
+### Key Principles
 
-### Apps and Packages
+1. **No Tailwind Import in `index.css`**: The `packages/ui/src/index.css` file does **not** include `@import "tailwindcss"`. Instead, it only contains:
+   - `@source` directive to reference source files
+   - Custom theme configuration
+   - CSS custom properties and base layer styles
+   
+   This keeps the source CSS clean and allows the consuming application to handle Tailwind processing.
 
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@imperial-hex/test-ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
+2. **Keep the Source**: The source CSS file (`src/index.css`) is preserved and copied to the `dist` folder during build using `vite-plugin-static-copy`.
 
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
+3. **IntelliSense Support**: A `.settings.json` file (or `.vscode/settings.json`) should be configured in the monorepo to enable proper IntelliSense for TypeScript and Tailwind CSS across workspace packages.
 
-### Utilities
+4. **CSS Distribution**: The styles are copied to the `dist` folder using `vite-plugin-static-copy` during the build process. The Vite configuration uses:
+   ```js
+   viteStaticCopy({
+     targets: [
+       {
+         src: "src/index.css",
+         dest: ".",
+         rename: "styles.css",
+       },
+     ],
+   })
+   ```
 
-This Turborepo has some additional tools already setup for you:
+5. **Consumer Configuration**: For consumers (both within the monorepo and external projects), the `globals.css` follows the same pattern:
+   ```css
+   @import "tailwindcss";
+   @import "@imperial-hex/test-ui/styles.css";
+   ```
 
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
+### Package Structure
+
+The UI package (`@imperial-hex/test-ui`) exports:
+- Components: `import { Button } from "@imperial-hex/test-ui"`
+- Utils: `import { cn } from "@imperial-hex/test-ui/utils"`
+- Styles: `import "@imperial-hex/test-ui/styles.css"`
+
+## Usage
+
+### Within the Monorepo
+
+In `apps/web/app/globals.css`:
+```css
+@import "tailwindcss";
+@import "@imperial-hex/test-ui/styles.css";
+```
+
+### External Projects
+
+For external projects consuming this package, see the example implementation:
+**[Test-Package-UI](https://github.com/IMPERIAL-HEX/Test-Package-UI)**
+
+The `globals.css` configuration is identical to the monorepo setup:
+```css
+@import "tailwindcss";
+@import "@imperial-hex/test-ui/styles.css";
+```
+
+## CSS Chunking and Optimization
+
+For advanced CSS chunking strategies and avoiding duplicate utility generation, refer to:
+- [Stack Overflow: Shipping a UI package alongside projects in a monorepo](https://stackoverflow.com/questions/79820754/shipping-a-ui-package-alongside-projects-in-a-monorepo/79820755#79820755)
+
+This discussion covers important considerations for:
+- Avoiding duplicate CSS utility generation
+- Proper Tailwind configuration in monorepo setups
+- Optimizing CSS output for production
+
+## Development
+
+### Install Dependencies
+
+```sh
+pnpm install
+```
 
 ### Build
 
-To build all apps and packages, run the following command:
-
-```
-cd my-turborepo
-
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo build
-
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo build
-yarn dlx turbo build
-pnpm exec turbo build
+Build all packages and apps:
+```sh
+pnpm build
 ```
 
-You can build a specific package by using a [filter](https://turborepo.com/docs/crafting-your-repository/running-tasks#using-filters):
-
-```
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo build --filter=docs
-
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo build --filter=docs
-yarn exec turbo build --filter=docs
-pnpm exec turbo build --filter=docs
+Build only the UI package:
+```sh
+pnpm --filter @imperial-hex/test-ui build
 ```
 
-### Develop
+### Development Mode
 
-To develop all apps and packages, run the following command:
-
-```
-cd my-turborepo
-
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo dev
-
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo dev
-yarn exec turbo dev
-pnpm exec turbo dev
+Run all apps in development mode:
+```sh
+pnpm dev
 ```
 
-You can develop a specific package by using a [filter](https://turborepo.com/docs/crafting-your-repository/running-tasks#using-filters):
-
-```
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo dev --filter=web
-
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo dev --filter=web
-yarn exec turbo dev --filter=web
-pnpm exec turbo dev --filter=web
+Run only the web app:
+```sh
+pnpm --filter web dev
 ```
 
-### Remote Caching
-
-> [!TIP]
-> Vercel Remote Cache is free for all plans. Get started today at [vercel.com](https://vercel.com/signup?/signup?utm_source=remote-cache-sdk&utm_campaign=free_remote_cache).
-
-Turborepo can use a technique known as [Remote Caching](https://turborepo.com/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
-
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup?utm_source=turborepo-examples), then enter the following commands:
-
-```
-cd my-turborepo
-
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo login
-
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo login
-yarn exec turbo login
-pnpm exec turbo login
+Watch the UI package for changes:
+```sh
+pnpm --filter @imperial-hex/test-ui dev
 ```
 
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
+## Technologies
 
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
+- **Turborepo**: Monorepo build system
+- **Vite**: Build tool for the UI package
+- **Tailwind CSS v4**: Utility-first CSS framework
+- **Next.js**: React framework for the web app
+- **TypeScript**: Type safety
+- **pnpm**: Package manager
 
-```
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo link
+## Learn More
 
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo link
-yarn exec turbo link
-pnpm exec turbo link
-```
-
-## Useful Links
-
-Learn more about the power of Turborepo:
-
-- [Tasks](https://turborepo.com/docs/crafting-your-repository/running-tasks)
-- [Caching](https://turborepo.com/docs/crafting-your-repository/caching)
-- [Remote Caching](https://turborepo.com/docs/core-concepts/remote-caching)
-- [Filtering](https://turborepo.com/docs/crafting-your-repository/running-tasks#using-filters)
-- [Configuration Options](https://turborepo.com/docs/reference/configuration)
-- [CLI Usage](https://turborepo.com/docs/reference/command-line-reference)
+- [Turborepo Documentation](https://turborepo.com/docs)
+- [Tailwind CSS v4 Documentation](https://tailwindcss.com/docs)
+- [Vite Documentation](https://vitejs.dev/)
